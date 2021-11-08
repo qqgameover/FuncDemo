@@ -10,9 +10,9 @@ namespace FuncDemo
         public static Func<int, int, int> Func = Thing;
         static void Main(string[] args)
         {
-            Console.WriteLine(Test(30, 40));
+            Test(30, 40).Tee(Console.WriteLine);
             var merText = new List<string> { "dette ", "er ", "en test " };
-            var text = new StringBuilder()
+            new StringBuilder()
                 .Append("Hei og hallo, ")
                 .AddSequence(merText, (builder, c) => builder
                     .Append(c)).Tee(Console.WriteLine);
@@ -31,18 +31,5 @@ namespace FuncDemo
         public static StringBuilder AddSequence<T>(this StringBuilder @this,
             IEnumerable<T> seq,
             Func<StringBuilder, T, StringBuilder> fn) => seq.Aggregate(@this, fn);
-    }
-
-    public static class FuncExtent
-    {
-        public static TResult Map<TSource, TResult>(this TSource @this,
-            Func<TSource, TResult> fn) => fn(@this);
-
-        public static T Tee<T>(this T @this,
-            Action<T> act)
-        {
-            act(@this);
-            return @this;
-        }
     }
 }
