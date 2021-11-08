@@ -10,8 +10,7 @@ namespace FuncDemo
         public static Func<int, int, int> Func = Thing;
         static void Main(string[] args)
         {
-            var x = Test(30, 40);
-            Console.WriteLine(x);
+            Console.WriteLine(Test(30, 40));
             var merText = new List<string> { "dette ", "er ", "en test " };
             var text = new StringBuilder()
                 .Append("Hei og hallo, ")
