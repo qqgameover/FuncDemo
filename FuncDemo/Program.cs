@@ -15,8 +15,7 @@ namespace FuncDemo
             var text = new StringBuilder()
                 .Append("Hei og hallo, ")
                 .AddSequence(merText, (builder, c) => builder
-                    .Append(c));
-            Console.WriteLine(text);
+                    .Append(c)).Tee(Console.WriteLine);
         }
 
         public static int Thing(int num1, int num2)
@@ -32,5 +31,18 @@ namespace FuncDemo
         public static StringBuilder AddSequence<T>(this StringBuilder @this,
             IEnumerable<T> seq,
             Func<StringBuilder, T, StringBuilder> fn) => seq.Aggregate(@this, fn);
+    }
+
+    public static class FuncExtent
+    {
+        public static TResult Map<TSource, TResult>(this TSource @this,
+            Func<TSource, TResult> fn) => fn(@this);
+
+        public static T Tee<T>(this T @this,
+            Action<T> act)
+        {
+            act(@this);
+            return @this;
+        }
     }
 }
