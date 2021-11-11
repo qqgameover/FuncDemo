@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
@@ -20,8 +21,7 @@ namespace FuncDemo
             var intList = testArray
                 .Where(x => x > 10)
                 .Select(x => x)
-                .ToList()
-                .AsReadOnly();
+                .ToImmutableArray();
             var enumerable = testArray.Select(x => x)
                 .Where(x => x > 10);
             enumerable.ToList().ForEach(x => Console.WriteLine(x));
