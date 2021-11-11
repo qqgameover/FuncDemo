@@ -17,15 +17,14 @@ namespace FuncDemo
                 .AddSequence(merText, (builder, c) => builder
                     .Append(c)).Tee(Console.WriteLine);
 
-            var intList = Enumerable.Range(0, testArray.Length)
-                .Select(x => testArray[x])
-                .Where(x => x > 10);
-            foreach (var num in intList) Console.WriteLine(num);
-
+            var intList = testArray
+                .Where(x => x > 10)
+                .Select(x => x)
+                .ToList()
+                .AsReadOnly();
             var enumerable = testArray.Select(x => x)
                 .Where(x => x > 10);
-            foreach (var i in enumerable) Console.WriteLine(i);
-            foreach (var num in testArray) Console.WriteLine(num);
+            enumerable.ToList().ForEach(x => Console.WriteLine(x));
         }
         
         public static Func<int, int, int> AddTwoNums = (num1, num2) => num1 + num2; //????? but why....
